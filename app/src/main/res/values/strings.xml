@@ -6,6 +6,10 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <!-- Content descriptions for images -->
+    <string name="background_image_description">Background image</string>
+    <string name="kuet_logo_description">KUET logo</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
