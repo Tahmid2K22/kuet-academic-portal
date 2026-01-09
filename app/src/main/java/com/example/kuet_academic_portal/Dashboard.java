@@ -1,11 +1,7 @@
 package com.example.kuet_academic_portal;
 
 import android.content.Intent;
-import android.graphics.RenderEffect;
-import android.graphics.Shader;
-import android.os.Build;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +21,6 @@ public class Dashboard extends AppCompatActivity {
         // Initialize views
         initializeViews();
 
-        // Apply blur effect to background
-        applyBackgroundBlur();
-
         // Setup click listeners
         setupClickListeners();
     }
@@ -41,16 +34,6 @@ public class Dashboard extends AppCompatActivity {
         contactsCard = findViewById(R.id.contactsCard);
     }
 
-    private void applyBackgroundBlur() {
-        ImageView backgroundImage = findViewById(R.id.backgroundImage);
-        if (backgroundImage != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // For Android 12 (API 31) and above, use RenderEffect for blur
-            float blurRadius = 15f; // Adjust this value: higher = more blur
-            backgroundImage.setRenderEffect(
-                RenderEffect.createBlurEffect(blurRadius, blurRadius, Shader.TileMode.CLAMP)
-            );
-        }
-    }
 
 
     private void setupClickListeners() {
