@@ -50,6 +50,7 @@
 
             </LinearLayout>
 
+
             <GridLayout
                 android:id="@+id/menuGrid"
                 android:layout_width="match_parent"
@@ -296,6 +297,21 @@
                 </com.google.android.material.card.MaterialCardView>
 
             </GridLayout>
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
+                android:text="Logout"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="#E74C3C"
+                android:elevation="4dp" />
 
         </LinearLayout>
 
