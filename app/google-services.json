@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "985031833672",
+    "project_id": "kuet-academic-portal-4fe87",
+    "storage_bucket": "kuet-academic-portal-4fe87.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985031833672:android:7f867166e45578683c807d",
+        "android_client_info": {
+          "package_name": "com.example.kuet_academic_portal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuUNXTs_DA1NwLv4fZpW_0i74gNJXiRnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

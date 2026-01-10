@@ -3,22 +3,23 @@ package com.example.kuet_academic_portal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.kuet_academic_portal.model.StudentSession;
+import com.example.kuet_academic_portal.session.SessionManager;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import com.example.kuet_academic_portal.model.StudentSession;
-import com.example.kuet_academic_portal.session.SessionManager;
-
 public class login extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
     private TextInputEditText emailInput, passwordInput;
     private Button loginButton;
     private FirebaseAuth mAuth;
@@ -44,15 +45,14 @@ public class login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null && sessionManager.isLoggedIn()) {
+        if (sessionManager.isLoggedIn()) {
             navigateToDashboard();
         }
     }
 
     private void loginUser() {
-        String email = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
+        String email = emailInput.getText() != null ? emailInput.getText().toString().trim() : "";
+        String password = passwordInput.getText() != null ? passwordInput.getText().toString().trim() : "";
 
         if (TextUtils.isEmpty(email)) {
             emailInput.setError("Email is required");
@@ -78,66 +78,93 @@ public class login extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        fetchStudentDataAndSaveSession(email);
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            String userEmail = user.getEmail();
+                            if (userEmail != null) {
+                                fetchStudentDataAndCreateSession(userEmail);
+                            }
+                        }
                     } else {
-                        Toast.makeText(login.this, "Authentication failed: " + task.getException().getMessage(),
-                                Toast.LENGTH_LONG).show();
+                        String errorMsg = task.getException() != null ? task.getException().getMessage() : "Unknown error";
+                        Toast.makeText(login.this, "Authentication failed: " + errorMsg, Toast.LENGTH_LONG).show();
                         loginButton.setEnabled(true);
                         loginButton.setText("Login");
                     }
                 });
     }
 
-    private void fetchStudentDataAndSaveSession(String email) {
-        db.collection("Students")
-                .whereEqualTo("email", email)
-                .limit(1)
+    private void fetchStudentDataAndCreateSession(String email) {
+        db.collection("students").whereEqualTo("email", email).limit(1)
                 .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
 
-                        StudentSession student = new StudentSession();
-                        student.setDepartment(doc.getString("department"));
-                        student.setEmail(doc.getString("email"));
-                        student.setName(doc.getString("name"));
+                             StudentSession session = new StudentSession();
+                        session.setEmail(email);
+                        session.setName(document.getString("name") != null ? document.getString("name") : "Student");
+                        session.setDepartment(document.getString("department") != null ? document.getString("department") : "");
+                        session.setPhone(document.getString("phone") != null ? document.getString("phone") : "");
+                        session.setRoll(document.getString("roll") != null ? document.getString("roll") : "");
+                        session.setSection(document.getString("section") != null ? document.getString("section") : "");
 
-                        Object phoneObj = doc.get("phone");
-                        student.setPhone(phoneObj != null ? String.valueOf(phoneObj) : "");
+                        Long termLong = document.getLong("term");
+                        Long yearLong = document.getLong("year");
+                        session.setTerm(termLong != null ? termLong.intValue() : 0);
+                        session.setYear(yearLong != null ? yearLong.intValue() : 0);
 
-                        Object rollObj = doc.get("roll");
-                        student.setRoll(rollObj != null ? String.valueOf(rollObj) : "");
+                        session.setRole(document.getString("role") != null ? document.getString("role") : "student");
 
-                        student.setSection(doc.getString("section"));
+                        sessionManager.saveSession(session);
 
-                        Long termLong = doc.getLong("term");
-                        student.setTerm(termLong != null ? termLong.intValue() : 0);
+                        Toast.makeText(login.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
-                        Long yearLong = doc.getLong("year");
-                        student.setYear(yearLong != null ? yearLong.intValue() : 0);
-
-                        sessionManager.saveSession(student);
-
-                        Toast.makeText(login.this, "Welcome, " + student.getName() + "!",
-                                Toast.LENGTH_SHORT).show();
-                        navigateToDashboard();
+                        if ("admin".equals(session.getRole())) {
+                            Intent intent = new Intent(login.this, AdminDashboard.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        } else {
+                            navigateToDashboard();
+                        }
                     } else {
-                        Toast.makeText(login.this, "Student data not found in database",
-                                Toast.LENGTH_LONG).show();
-                        mAuth.signOut();
-                        loginButton.setEnabled(true);
-                        loginButton.setText("Login");
+                        StudentSession session = new StudentSession();
+                        session.setEmail(email);
+                        session.setName("Student");
+                        session.setDepartment("");
+                        session.setPhone("");
+                        session.setRoll("");
+                        session.setSection("");
+                        session.setTerm(0);
+                        session.setYear(0);
+                        session.setRole("student");
+
+                        sessionManager.saveSession(session);
+
+                        Toast.makeText(login.this, "Login successful! Please complete your profile.", Toast.LENGTH_SHORT).show();
+                        navigateToDashboard();
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(login.this, "Error fetching student data: " + e.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                    mAuth.signOut();
-                    loginButton.setEnabled(true);
-                    loginButton.setText("Login");
+                    Log.e(TAG, "Error fetching student data", e);
+
+                    StudentSession session = new StudentSession();
+                    session.setEmail(email);
+                    session.setName("Student");
+                    session.setDepartment("");
+                    session.setPhone("");
+                    session.setRoll("");
+                    session.setSection("");
+                    session.setTerm(0);
+                    session.setYear(0);
+                    session.setRole("student");
+
+                    sessionManager.saveSession(session);
+
+                    Toast.makeText(login.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                    navigateToDashboard();
                 });
     }
-
 
     private void navigateToDashboard() {
         Intent intent = new Intent(login.this, Dashboard.class);

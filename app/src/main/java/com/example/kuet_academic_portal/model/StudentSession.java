@@ -10,13 +10,14 @@ public class StudentSession {
     private String section;
     private int term;
     private int year;
+    private String role;
 
     public StudentSession() {
     }
 
     public StudentSession(String department, String email, String name,
                          String phone, String roll, String section,
-                         int term, int year) {
+                         int term, int year, String role) {
         this.department = department;
         this.email = email;
         this.name = name;
@@ -25,6 +26,7 @@ public class StudentSession {
         this.section = section;
         this.term = term;
         this.year = year;
+        this.role = role;
     }
 
     public String getDepartment() {
@@ -91,6 +93,14 @@ public class StudentSession {
         this.year = year;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "StudentSession{" +
@@ -101,6 +111,7 @@ public class StudentSession {
                 ", section='" + section + '\'' +
                 ", term=" + term +
                 ", year=" + year +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

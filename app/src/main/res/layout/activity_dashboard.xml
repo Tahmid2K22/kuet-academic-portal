@@ -48,15 +48,6 @@
                     android:textColor="#E0E0E0"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/welcomeMSG"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="Welcome"
-                    android:textColor="#E0E0E0"
-                    android:textSize="14sp" />
 
             </LinearLayout>
 

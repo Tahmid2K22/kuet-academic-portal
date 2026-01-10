@@ -3,7 +3,6 @@ package com.example.kuet_academic_portal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -15,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.kuet_academic_portal.model.StudentSession;
 import com.example.kuet_academic_portal.session.SessionManager;
+import com.example.kuet_academic_portal.NoticeActivity;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -23,7 +23,6 @@ public class Dashboard extends AppCompatActivity {
     private Button logoutButton;
     private FirebaseAuth mAuth;
     private SessionManager sessionManager;
-    TextView msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +50,14 @@ public class Dashboard extends AppCompatActivity {
         noticesCard = findViewById(R.id.noticesCard);
         contactsCard = findViewById(R.id.contactsCard);
         logoutButton = findViewById(R.id.logoutButton);
-        msg = findViewById(R.id.welcomeMSG);
     }
 
     private void displayStudentInfo() {
         StudentSession session = sessionManager.getSession();
         if (session != null) {
-           msg.setText("Welcome, " + session.getName() + "\n");
+            String welcomeMessage = "Welcome, " + session.getName() + "!\n" +
+                    session.getDepartment() + " | Roll: " + session.getRoll();
+            Toast.makeText(this, welcomeMessage, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -123,8 +123,8 @@ public class Dashboard extends AppCompatActivity {
     private void openNotices() {
         // TODO: Create NoticesActivity
         Toast.makeText(this, "Opening Notices...", Toast.LENGTH_SHORT).show();
-        // Intent intent = new Intent(this, NoticesActivity.class);
-        // startActivity(intent);
+         Intent intent = new Intent(this, NoticeActivity.class);
+         startActivity(intent);
     }
 
     private void openContacts() {

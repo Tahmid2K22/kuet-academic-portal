@@ -16,6 +16,7 @@ public class SessionManager {
     private static final String KEY_SECTION = "section";
     private static final String KEY_TERM = "term";
     private static final String KEY_YEAR = "year";
+    private static final String KEY_ROLE = "role";
 
     private final SharedPreferences prefs;
 
@@ -33,6 +34,7 @@ public class SessionManager {
         editor.putString(KEY_SECTION, student.getSection());
         editor.putInt(KEY_TERM, student.getTerm());
         editor.putInt(KEY_YEAR, student.getYear());
+        editor.putString(KEY_ROLE, student.getRole());
         editor.apply();
     }
 
@@ -51,6 +53,7 @@ public class SessionManager {
         student.setSection(prefs.getString(KEY_SECTION, ""));
         student.setTerm(prefs.getInt(KEY_TERM, 0));
         student.setYear(prefs.getInt(KEY_YEAR, 0));
+        student.setRole(prefs.getString(KEY_ROLE, "student"));
         return student;
     }
 
@@ -76,6 +79,10 @@ public class SessionManager {
 
     public String getStudentRoll() {
         return prefs.getString(KEY_ROLL, "");
+    }
+
+    public String getStudentRole() {
+        return prefs.getString(KEY_ROLE, "student");
     }
 }
 
