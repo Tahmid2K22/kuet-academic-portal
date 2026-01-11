@@ -1,143 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:orientation="vertical"
     android:background="#F5F5F5"
-    android:id="@+id/cls_routine"
-    >
+    android:id="@+id/cls_routine">
 
     <TextView
-        android:id="@+id/tvHeading"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="Class Routine"
-        android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@android:color/white"
+        android:background="#2C3E50"
+        android:padding="16dp"
+        android:elevation="4dp"/>
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tvHeading"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
 
-        <TableLayout
-            android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvNoRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_routine_found"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Table Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#DDDDDD"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:stretchColumns="*"
-            android:shrinkColumns="*">
+            android:layout_weight="1"
+            android:text="Day"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="12sp"/>
 
-            <TableRow android:background="#3F51B5" android:padding="8dp">
-                <TextView android:text="Time" android:textColor="#FFF" android:textStyle="bold" android:padding="8dp"/>
-                <TextView android:text="Sun" android:textColor="#FFF" android:textStyle="bold" android:padding="8dp"/>
-                <TextView android:text="Mon" android:textColor="#FFF" android:textStyle="bold" android:padding="8dp"/>
-                <TextView android:text="Tue" android:textColor="#FFF" android:textStyle="bold" android:padding="8dp"/>
-                <TextView android:text="Wed" android:textColor="#FFF" android:textStyle="bold" android:padding="8dp"/>
-                <TextView android:text="Thu" android:textColor="#FFF" android:textStyle="bold" android:padding="8dp"/>
-            </TableRow>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="Time"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="12sp"/>
 
-            <TableRow android:background="#E0E0E0">
-                <TextView android:text="8:00-8:50" android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:text="Course"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="12sp"/>
 
-            <TableRow android:background="#FFFFFF">
-                <TextView android:text="8:50-9:40" android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="Teacher"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="12sp"/>
 
-            <TableRow android:background="#E0E0E0">
-                <TextView android:text="9:40-10:30" android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:text="Room"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="12sp"/>
+    </LinearLayout>
 
-            <TableRow android:background="#FFFFFF">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRoutine"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="0dp"
+        android:clipToPadding="false"/>
 
-                <TextView
-                    android:padding="8dp"
-                    android:text="10:40-11:30" />
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
-
-            <TableRow android:background="#E0E0E0">
-
-                <TextView
-                    android:padding="8dp"
-                    android:text="11:30-12:20" />
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
-
-            <TableRow android:background="#FFFFFF">
-
-                <TextView
-                    android:padding="8dp"
-                    android:text="12:20-1:10" />
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
-
-            <TableRow android:background="#E0E0E0">
-                <TextView android:text="2:30-3:20" android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
-
-            <TableRow android:background="#FFFFFF">
-                <TextView android:text="3:20-4:10" android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
-
-            <TableRow android:background="#E0E0E0">
-                <TextView android:text="4:10-5:00" android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-                <TextView android:padding="8dp"/>
-            </TableRow>
-
-        </TableLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -72,4 +72,37 @@
     <string name="desc_email_icon">Email symbol</string>
     <string name="desc_phone_icon">Phone symbol</string>
     <string name="desc_delete_contact">Delete contact</string>
+
+    <!-- Result strings -->
+    <string name="add_result_title">Add Student Result</string>
+    <string name="roll_hint">Student Roll (e.g. 2107001)</string>
+    <string name="term_hint">Term (1-8)</string>
+    <string name="gpa_hint">Term GPA (e.g. 3.75)</string>
+    <string name="ct_marks_label">CT Marks (Format: Course:Mark)</string>
+    <string name="ct_marks_hint">e.g. CSE3100:18, CSE3101:15, HUM3119:19</string>
+    <string name="save_result">Save Result</string>
+    <string name="academic_results_title">Academic Results</string>
+    <string name="term_wise_cgpa">Term Wise CGPA</string>
+    <string name="ct_marks_distribution">CT Marks Distribution</string>
+    <string name="select_term">Select Term: </string>
+
+    <!-- Routine strings -->
+    <string name="add_routine_title">Add Class Routine</string>
+    <string name="dept_hint">Department (e.g. CSE)</string>
+    <string name="year_hint">Year (1-4)</string>
+    <string name="term_hint_num">Term (1-2)</string>
+    <string name="start_time_hint">Start (e.g. 08:00 AM)</string>
+    <string name="end_time_hint">End (e.g. 08:50 AM)</string>
+    <string name="course_code_hint">Course Code (e.g. CSE 3101)</string>
+    <string name="teacher_hint">Teacher (e.g. KMA)</string>
+    <string name="room_hint">Room No (e.g. 101)</string>
+    <string name="save_routine">Save Routine</string>
+    <!-- Item Routine placeholders -->
+    <string name="routine_day">Monday</string>
+    <string name="routine_time">08:00 AM - 08:50 AM</string>
+    <string name="routine_course">CSE 3101</string>
+    <string name="routine_teacher">Teacher: KMA</string>
+    <string name="routine_room">Room: 101</string>
+    <string name="class_routine_title">Class Routine</string>
+    <string name="no_routine_found">No routine found</string>
 </resources>

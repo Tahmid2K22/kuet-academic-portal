@@ -82,17 +82,20 @@ public class AdminDashboard extends AppCompatActivity {
             startActivity(intent);
         });
 
-        addResultCard.setOnClickListener(v ->
-            Toast.makeText(this, "Add Result feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        addResultCard.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboard.this, AddResultActivity.class);
+            startActivity(intent);
+        });
 
-        addRoutineCard.setOnClickListener(v ->
-            Toast.makeText(this, "Add Routine feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        addRoutineCard.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboard.this, AddRoutineActivity.class);
+            startActivity(intent);
+        });
 
-        updateRoutineCard.setOnClickListener(v ->
-            Toast.makeText(this, "Update Routine feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        updateRoutineCard.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboard.this, ManageRoutinesActivity.class);
+            startActivity(intent);
+        });
 
         manageContactsCard.setOnClickListener(v -> {
             Intent intent = new Intent(AdminDashboard.this, ContactsActivity.class);

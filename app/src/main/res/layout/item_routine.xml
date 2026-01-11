@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="@drawable/border_bottom">
+
+    <TextView
+        android:id="@+id/tvDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Day"
+        android:gravity="center"
+        android:padding="4dp"
+        android:textColor="#000000"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:text="Time"
+        android:gravity="center"
+        android:padding="4dp"
+        android:textColor="#000000"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tvCourseCode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
+        android:text="Course"
+        android:gravity="center"
+        android:padding="4dp"
+        android:textColor="#000000"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tvTeacher"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:text="Teacher"
+        android:gravity="center"
+        android:padding="4dp"
+        android:textColor="#000000"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tvRoom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:text="Room"
+        android:gravity="center"
+        android:padding="4dp"
+        android:textColor="#000000"
+        android:textSize="12sp"/>
+
+</LinearLayout>
+
+

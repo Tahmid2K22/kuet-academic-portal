@@ -75,6 +75,18 @@
         <activity
             android:name=".AddContactActivity"
             android:exported="false" />
+        <activity
+            android:name=".AddResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StudentResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddRoutineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManageRoutinesActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -110,10 +110,8 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void openResults() {
-        // TODO: Create ResultsActivity
-        Toast.makeText(this, "Opening Results...", Toast.LENGTH_SHORT).show();
-        // Intent intent = new Intent(this, ResultsActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(this, StudentResultActivity.class);
+        startActivity(intent);
     }
 
     private void openNotices() {
