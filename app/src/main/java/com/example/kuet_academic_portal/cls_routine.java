@@ -51,7 +51,7 @@ public class cls_routine extends AppCompatActivity {
         StudentSession session = sessionManager.getSession();
         if (session == null) {
             Toast.makeText(this, "Session expired", Toast.LENGTH_SHORT).show();
-            // In a real app, redirect to login
+            
             return;
         }
 
@@ -80,7 +80,7 @@ public class cls_routine extends AppCompatActivity {
                                 routine.setTeacher(doc.getString("teacher"));
                                 routine.setRoom(doc.getString("room"));
 
-                                // Safe parsing for Year and Term
+                                
                                 Object yearObj = doc.get("year");
                                 if (yearObj instanceof Number) {
                                     routine.setYear(((Number) yearObj).intValue());
@@ -109,7 +109,7 @@ public class cls_routine extends AppCompatActivity {
                             }
                         }
 
-                        // Custom Sort: Day (Sun-Sat) then Time
+                        
                         sortRoutines(routineList);
 
                         adapter.notifyDataSetChanged();

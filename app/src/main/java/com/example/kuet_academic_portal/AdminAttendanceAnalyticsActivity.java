@@ -99,7 +99,7 @@ public class AdminAttendanceAnalyticsActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        // Convert term and year to integers for Firestore query
+        
         int termInt = Integer.parseInt(term);
         int yearInt = Integer.parseInt(year);
 

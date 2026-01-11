@@ -18,7 +18,7 @@ public class AddRoutineActivity extends AppCompatActivity {
     private EditText etDepartment, etYear, etTerm, etStartTime, etEndTime, etCourseCode, etTeacher, etRoom;
     private Spinner spinnerDay;
     private FirebaseFirestore db;
-    private String routineId; // For edit mode
+    private String routineId; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class AddRoutineActivity extends AppCompatActivity {
 
         setupSpinner();
 
-        // Check for edit mode
+        
         if (getIntent().hasExtra("id")) {
             routineId = getIntent().getStringExtra("id");
             etDepartment.setText(getIntent().getStringExtra("department"));
@@ -94,9 +94,9 @@ public class AddRoutineActivity extends AppCompatActivity {
         Routine routine = new Routine(department, year, term, day, startTime, endTime, courseCode, teacher, room);
 
         if (routineId != null) {
-            // Update
-            // Ensure the ID is preserved in the object if needed, though usually ID is separate in Firestore operations
-            // However, if we overwrite the document, we want to ensure we don't lose data or change structure unexpectedly.
+            
+            
+            
             routine.setId(routineId);
 
             db.collection("routines").document(routineId)
@@ -109,7 +109,7 @@ public class AddRoutineActivity extends AppCompatActivity {
                         Toast.makeText(this, "Error updating routine: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                     );
         } else {
-            // Add
+            
             db.collection("routines")
                     .add(routine)
                     .addOnSuccessListener(documentReference -> {

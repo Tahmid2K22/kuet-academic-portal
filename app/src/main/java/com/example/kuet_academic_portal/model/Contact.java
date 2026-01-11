@@ -9,7 +9,7 @@ public class Contact {
     private String department;
 
     public Contact() {
-        // Required empty public constructor
+        
     }
 
     public Contact(String name, String designation, String email, String phone, String department) {

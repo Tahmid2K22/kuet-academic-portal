@@ -97,9 +97,9 @@ public class AddNoticeActivity extends AppCompatActivity {
             return;
         }
 
-        // Removed strict 1-4 validation to be more flexible, or strict is fine if project requires.
-        // Keeping it consistent with user request "make it simple".
-        // But validation is safer. I'll keep default basic validation.
+        
+        
+        
 
         submitNotice(title, description, term, year);
     }

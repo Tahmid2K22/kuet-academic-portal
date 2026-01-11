@@ -88,7 +88,7 @@ public class AddResultActivity extends AppCompatActivity {
                         float marks = Float.parseFloat(entry[1].trim());
                         ctMarksMap.put(course, marks);
                     } catch (NumberFormatException e) {
-                        // Ignore invalid marks
+                        
                     }
                 }
             }
@@ -97,7 +97,7 @@ public class AddResultActivity extends AppCompatActivity {
             }
         }
 
-        // ID: roll_year_term ensures one entry per term for a student
+        
         db.collection("results").document(roll + "_" + year + "_" + term)
                 .set(resultData, SetOptions.merge())
                 .addOnSuccessListener(aVoid -> {

@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">KUET_academic_portal</string>
-    <!-- Strings used for fragments for navigation -->
+    
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <!-- Content descriptions for images -->
+    
     <string name="background_image_description">Background image</string>
     <string name="kuet_logo_description">KUET logo</string>
 
@@ -53,7 +53,7 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
 
-    <!-- AddContactActivity strings -->
+    
     <string name="add_new_contact">Add New Contact</string>
     <string name="full_name_hint">Full Name</string>
     <string name="designation_hint">Designation (e.g. Professor)</string>
@@ -63,7 +63,7 @@
     <string name="save_contact">Save Contact</string>
     <string name="cancel">Cancel</string>
 
-    <!-- Contact item strings -->
+    
     <string name="contact_name_placeholder">Name</string>
     <string name="contact_designation_placeholder">Designation</string>
     <string name="contact_department_placeholder">Department</string>
@@ -73,7 +73,7 @@
     <string name="desc_phone_icon">Phone symbol</string>
     <string name="desc_delete_contact">Delete contact</string>
 
-    <!-- Result strings -->
+    
     <string name="add_result_title">Add Student Result</string>
     <string name="roll_hint">Student Roll (e.g. 2107001)</string>
     <string name="term_hint">Term (1-8)</string>
@@ -86,7 +86,7 @@
     <string name="ct_marks_distribution">CT Marks Distribution</string>
     <string name="select_term">Select Term: </string>
 
-    <!-- Routine strings -->
+    
     <string name="add_routine_title">Add Class Routine</string>
     <string name="dept_hint">Department (e.g. CSE)</string>
     <string name="year_hint">Year (1-4)</string>
@@ -97,7 +97,7 @@
     <string name="teacher_hint">Teacher (e.g. KMA)</string>
     <string name="room_hint">Room No (e.g. 101)</string>
     <string name="save_routine">Save Routine</string>
-    <!-- Item Routine placeholders -->
+    
     <string name="routine_day">Monday</string>
     <string name="routine_time">08:00 AM - 08:50 AM</string>
     <string name="routine_course">CSE 3101</string>

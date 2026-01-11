@@ -67,7 +67,7 @@ public class ManageRoutinesActivity extends AppCompatActivity {
                 .setTitle("Select Action")
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
-                        // Edit
+                        
                         Intent intent = new Intent(ManageRoutinesActivity.this, AddRoutineActivity.class);
                         intent.putExtra("id", routine.getId());
                         intent.putExtra("department", routine.getDepartment());
@@ -81,7 +81,7 @@ public class ManageRoutinesActivity extends AppCompatActivity {
                         intent.putExtra("room", routine.getRoom());
                         startActivity(intent);
                     } else {
-                        // Delete
+                        
                         deleteRoutine(routine);
                     }
                 })
@@ -95,7 +95,7 @@ public class ManageRoutinesActivity extends AppCompatActivity {
                 .delete()
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Routine deleted", Toast.LENGTH_SHORT).show();
-                    loadRoutines(); // Reload to refresh list
+                    loadRoutines(); 
                 })
                 .addOnFailureListener(e -> {
                     progressBar.setVisibility(View.GONE);
@@ -151,7 +151,7 @@ public class ManageRoutinesActivity extends AppCompatActivity {
                                 routine.setTeacher(doc.getString("teacher"));
                                 routine.setRoom(doc.getString("room"));
 
-                                // Safe parsing for Year and Term
+                                
                                 Object yearObj = doc.get("year");
                                 if (yearObj instanceof Number) {
                                     routine.setYear(((Number) yearObj).intValue());
@@ -180,7 +180,7 @@ public class ManageRoutinesActivity extends AppCompatActivity {
                             }
                         }
 
-                        // Sort by Day then Time
+                        
                         sortRoutines(routineList);
 
                         adapter.notifyDataSetChanged();

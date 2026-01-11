@@ -50,7 +50,7 @@ public class AttendanceMarkAdapter extends RecyclerView.Adapter<AttendanceMarkAd
         return studentList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvRoll, tvName;
         RadioGroup radioGroup;
         RadioButton rbPresent, rbAbsent;
@@ -67,6 +67,9 @@ public class AttendanceMarkAdapter extends RecyclerView.Adapter<AttendanceMarkAd
         void bind(Student student) {
             tvRoll.setText(student.getRoll());
             tvName.setText(student.getName());
+
+            
+            radioGroup.setOnCheckedChangeListener(null);
 
             String savedStatus = attendanceStatus.get(student.getRoll());
             if ("Present".equals(savedStatus)) {

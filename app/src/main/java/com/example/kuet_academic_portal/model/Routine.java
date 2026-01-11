@@ -5,7 +5,7 @@ public class Routine {
     private String department;
     private int year;
     private int term;
-    private String day; // Monday, Tuesday, etc.
+    private String day; 
     private String startTime;
     private String endTime;
     private String courseCode;
@@ -13,7 +13,7 @@ public class Routine {
     private String room;
 
     public Routine() {
-        // Required empty public constructor
+        
     }
 
     public Routine(String department, int year, int term, String day, String startTime, String endTime, String courseCode, String teacher, String room) {

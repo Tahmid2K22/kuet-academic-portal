@@ -2,15 +2,15 @@ package com.example.kuet_academic_portal.model;
 
 public class Student {
     private String id;
-    private Object roll;  // Changed to Object to handle both String and Long
+    private Object roll;  
     private String name;
     private String department;
-    private Object term;  // Changed to Object to handle both String and Long
-    private Object year;  // Changed to Object to handle both String and Long
+    private Object term;  
+    private Object year;  
     private String section;
     private String email;
-    private Object phone;  // Changed to Object to handle both String and Long
-    private String role;  // Role field (student/admin)
+    private Object phone;  
+    private String role;  
 
     public Student() {
     }

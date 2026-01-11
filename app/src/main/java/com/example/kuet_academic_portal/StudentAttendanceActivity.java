@@ -109,52 +109,65 @@ public class StudentAttendanceActivity extends AppCompatActivity {
 
     private void loadAttendanceData() {
         progressBar.setVisibility(View.VISIBLE);
+        List<QueryDocumentSnapshot> allDocuments = new ArrayList<>();
 
+        boolean isNum = false;
+        long rollNumber = -1;
         try {
-            // First try querying as Number (typical case)
-            long rollNumber = Long.parseLong(studentRoll);
+            rollNumber = Long.parseLong(studentRoll);
+            isNum = true;
+        } catch (NumberFormatException e) {
+            isNum = false;
+        }
 
-            android.util.Log.d("AttendanceDebug", "Querying for roll (Number): " + rollNumber);
-
+        if (isNum) {
+            long finalRollNumber = rollNumber;
+            
             db.collection("attendance")
-                .whereEqualTo("roll", rollNumber)
+                .whereEqualTo("roll", finalRollNumber)
                 .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (queryDocumentSnapshots.isEmpty()) {
-                        // If no results, try querying as String (fallback)
-                        loadAttendanceDataAsString(studentRoll);
-                    } else {
-                        processAttendanceData(queryDocumentSnapshots);
+                .addOnSuccessListener(numberSnapshots -> {
+                    for (QueryDocumentSnapshot doc : numberSnapshots) {
+                        allDocuments.add(doc);
                     }
+                    
+                    fetchStringRollAndProcess(allDocuments);
                 })
                 .addOnFailureListener(e -> {
-                    android.util.Log.e("AttendanceDebug", "Error querying number roll", e);
-                    // Try string fallback on error too
-                    loadAttendanceDataAsString(studentRoll);
+                    
+                    fetchStringRollAndProcess(allDocuments);
                 });
-
-        } catch (NumberFormatException e) {
-            // If roll is not a number, query only as String
-            loadAttendanceDataAsString(studentRoll);
+        } else {
+            
+            fetchStringRollAndProcess(allDocuments);
         }
     }
 
-    private void loadAttendanceDataAsString(String rollString) {
-        android.util.Log.d("AttendanceDebug", "Querying for roll (String): " + rollString);
-
+    private void fetchStringRollAndProcess(List<QueryDocumentSnapshot> allDocuments) {
         db.collection("attendance")
-            .whereEqualTo("roll", rollString)
+            .whereEqualTo("roll", studentRoll)
             .get()
-            .addOnSuccessListener(this::processAttendanceData)
+            .addOnSuccessListener(stringSnapshots -> {
+                for (QueryDocumentSnapshot doc : stringSnapshots) {
+                    boolean exists = false;
+                    for (QueryDocumentSnapshot existing : allDocuments) {
+                        if (existing.getId().equals(doc.getId())) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists) allDocuments.add(doc);
+                }
+                processAttendanceData(allDocuments);
+            })
             .addOnFailureListener(e -> {
-                android.util.Log.e("AttendanceDebug", "Error querying string roll", e);
-                Toast.makeText(this, "Error loading attendance", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
-            });
+                processAttendanceData(allDocuments);
+            })
+            .addOnCompleteListener(task -> progressBar.setVisibility(View.GONE));
     }
 
-    private void processAttendanceData(com.google.firebase.firestore.QuerySnapshot queryDocumentSnapshots) {
-        android.util.Log.d("AttendanceDebug", "Found " + queryDocumentSnapshots.size() + " documents");
+    private void processAttendanceData(List<QueryDocumentSnapshot> documents) {
+        android.util.Log.d("AttendanceDebug", "Found " + documents.size() + " documents");
 
         Map<String, Integer> coursePresent = new HashMap<>();
         Map<String, Integer> courseTotal = new HashMap<>();
@@ -162,23 +175,20 @@ public class StudentAttendanceActivity extends AppCompatActivity {
         int totalPresent = 0;
         int totalAbsent = 0;
 
-        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+        for (QueryDocumentSnapshot document : documents) {
             String course = document.getString("course");
             String status = document.getString("status");
             com.google.firebase.Timestamp timestamp = document.getTimestamp("date");
 
-            // Case-insensitive trimming
+            
             if (course != null) course = course.trim();
             if (status != null) status = status.trim();
-
-            // Debug log
-            android.util.Log.d("AttendanceDebug", "Doc ID: " + document.getId() + ", Course: " + course + ", Status: " + status);
 
             if (course != null && status != null) {
                 Integer currentTotal = courseTotal.get(course);
                 courseTotal.put(course, (currentTotal == null ? 0 : currentTotal) + 1);
 
-                if ("Present".equalsIgnoreCase(status) || "P".equalsIgnoreCase(status)) { // Case-insensitive check, also 'P'
+                if ("Present".equalsIgnoreCase(status) || "P".equalsIgnoreCase(status)) { 
                     Integer currentPresent = coursePresent.get(course);
                     coursePresent.put(course, (currentPresent == null ? 0 : currentPresent) + 1);
                     totalPresent++;
@@ -205,8 +215,6 @@ public class StudentAttendanceActivity extends AppCompatActivity {
         displayMonthlyChart(monthlyPresent);
         displayPresentAbsentChart(totalPresent, totalAbsent);
         displayStats(totalPresent, totalAbsent, courseTotal.size());
-
-        progressBar.setVisibility(View.GONE);
     }
 
     private void displaySubjectWiseChart(Map<String, Integer> coursePresent, Map<String, Integer> courseTotal) {

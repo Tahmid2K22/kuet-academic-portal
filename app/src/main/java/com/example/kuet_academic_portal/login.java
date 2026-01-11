@@ -114,11 +114,11 @@ public class login extends AppCompatActivity {
                         session.setName(document.getString("name") != null ? document.getString("name") : "Student");
                         session.setDepartment(document.getString("department") != null ? document.getString("department") : "");
 
-                        // Handle phone - stored as Number in Firestore
+                        
                         Long phoneLong = document.getLong("phone");
                         session.setPhone(phoneLong != null ? String.valueOf(phoneLong) : "");
 
-                        // Handle roll - stored as Number in Firestore
+                        
                         Long rollLong = document.getLong("roll");
                         session.setRoll(rollLong != null ? String.valueOf(rollLong) : "");
 

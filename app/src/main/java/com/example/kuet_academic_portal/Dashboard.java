@@ -71,29 +71,29 @@ public class Dashboard extends AppCompatActivity {
 
 
     private void setupClickListeners() {
-        // Logout Button
+        
         logoutButton.setOnClickListener(v -> showLogoutDialog());
 
-        // Class Routine Card
+        
         classRoutineCard.setOnClickListener(v -> openClassRoutine());
 
-        // Assignments Card
+        
         assignmentsCard.setOnClickListener(v -> openAssignments());
 
-        // Attendance Card
+        
         attendanceCard.setOnClickListener(v -> openAttendance());
 
-        // Results Card
+        
         resultsCard.setOnClickListener(v -> openResults());
 
-        // Notices Card
+        
         noticesCard.setOnClickListener(v -> openNotices());
 
-        // Contacts Card
+        
         contactsCard.setOnClickListener(v -> openContacts());
     }
 
-    // Navigation methods
+    
     private void openClassRoutine() {
         Intent intent = new Intent(this, cls_routine.class);
         startActivity(intent);
@@ -115,7 +115,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void openNotices() {
-        // TODO: Create NoticesActivity
+        
         Toast.makeText(this, "Opening Notices...", Toast.LENGTH_SHORT).show();
          Intent intent = new Intent(this, NoticeActivity.class);
          startActivity(intent);

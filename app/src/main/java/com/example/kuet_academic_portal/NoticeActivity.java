@@ -64,7 +64,7 @@ public class NoticeActivity extends AppCompatActivity {
         Log.d(TAG, "Session data - Name: " + session.getName() + ", Email: " + session.getEmail() +
                    ", Term: " + term + ", Year: " + year + ", Role: " + session.getRole());
 
-        // If term or year is invalid (0), load all notices
+        
         if (term <= 0 || year <= 0) {
             Log.w(TAG, "Invalid term/year data. Loading all notices.");
             Toast.makeText(this, "Loading all notices (profile incomplete)", Toast.LENGTH_SHORT).show();

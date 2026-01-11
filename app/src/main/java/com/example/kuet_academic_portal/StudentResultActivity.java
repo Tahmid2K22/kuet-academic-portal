@@ -44,7 +44,7 @@ public class StudentResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_result);
 
-        // Session check
+        
         SessionManager sessionManager = new SessionManager(this);
         StudentSession session = sessionManager.getSession();
         if (session == null) {
@@ -109,11 +109,11 @@ public class StudentResultActivity extends AppCompatActivity {
                     resultList.clear();
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {
                         try {
-                            // Manually parsing to handle type mismatches (String vs Int for term/year)
+                            
                             Result result = new Result();
                             result.setRoll(doc.getString("roll"));
 
-                            // Handle Year
+                            
                             Object yearObj = doc.get("year");
                             if (yearObj instanceof Number) {
                                 result.setYear(((Number) yearObj).intValue());
@@ -125,7 +125,7 @@ public class StudentResultActivity extends AppCompatActivity {
                                 }
                             }
 
-                            // Handle Term
+                            
                             Object termObj = doc.get("term");
                             if (termObj instanceof Number) {
                                 result.setTerm(((Number) termObj).intValue());
@@ -137,11 +137,11 @@ public class StudentResultActivity extends AppCompatActivity {
                                 }
                             }
 
-                            // Handle GPA
+                            
                             Double gpa = doc.getDouble("gpa");
                             result.setGpa(gpa);
 
-                            // Handle CT Marks
+                            
                             Map<String, Object> ctMarksRaw = (Map<String, Object>) doc.get("ctMarks");
                             if (ctMarksRaw != null) {
                                 Map<String, Float> ctMarks = new HashMap<>();
@@ -159,7 +159,7 @@ public class StudentResultActivity extends AppCompatActivity {
                         }
                     }
 
-                    // Sort by term
+                    
                     resultList.sort(Comparator.comparingInt(Result::getYear)
                             .thenComparingInt(Result::getTerm));
 
@@ -235,7 +235,7 @@ public class StudentResultActivity extends AppCompatActivity {
         dataSet.setValueTextSize(10f);
 
         BarData barData = new BarData(dataSet);
-        barData.setBarWidth(0.6f); // Thinner bars for CT marks maybe
+        barData.setBarWidth(0.6f); 
 
         chartCT.setData(barData);
         chartCT.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));

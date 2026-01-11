@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kuet_academic_portal.adapter.StudentAdapter;
 import com.example.kuet_academic_portal.model.Student;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -31,6 +32,7 @@ public class ManageStudentsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private EditText etSearchRoll;
     private Button btnSearch, btnBack, btnAddStudent;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class ManageStudentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_students);
 
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         studentList = new ArrayList<>();
 
         initializeViews();
@@ -182,6 +185,7 @@ public class ManageStudentsActivity extends AppCompatActivity {
         EditText etSection = dialogView.findViewById(R.id.etAddSection);
         EditText etEmail = dialogView.findViewById(R.id.etAddEmail);
         EditText etPhone = dialogView.findViewById(R.id.etAddPhone);
+        EditText etPassword = dialogView.findViewById(R.id.etAddPassword);
 
         new AlertDialog.Builder(this)
             .setTitle("Add New Student")
@@ -195,60 +199,82 @@ public class ManageStudentsActivity extends AppCompatActivity {
                 String section = etSection.getText().toString().trim();
                 String email = etEmail.getText().toString().trim();
                 String phone = etPhone.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
 
                 if (roll.isEmpty()) {
                     Toast.makeText(this, "Roll number required", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (name.isEmpty()) {
-                    Toast.makeText(this, "Name required", Toast.LENGTH_SHORT).show();
+                if (password.isEmpty() || password.length() < 6) {
+                    Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (department.isEmpty()) {
-                    Toast.makeText(this, "Department required", Toast.LENGTH_SHORT).show();
+                if (email.isEmpty()) {
+                    Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                try {
-                    Map<String, Object> studentData = new HashMap<>();
-                    studentData.put("roll", Long.parseLong(roll));
-                    studentData.put("name", name);
-                    studentData.put("department", department);
-                    studentData.put("section", section);
-                    studentData.put("email", email);
+                
+                
+                mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnSuccessListener(authResult -> {
+                        if (authResult.getUser() != null) {
+                            String uid = authResult.getUser().getUid();
+                            saveStudentToFirestore(roll, name, department, termStr, yearStr, section, email, phone, uid);
+                        } else {
+                            Toast.makeText(this, "Authentication succeeded but user is null", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Authentication failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
 
-                    if (!phone.isEmpty()) {
-                        studentData.put("phone", Long.parseLong(phone));
-                    } else {
-                        studentData.put("phone", "");
-                    }
-
-                    studentData.put("role", "student");
-
-                    if (!termStr.isEmpty()) {
-                        studentData.put("term", Integer.parseInt(termStr));
-                    }
-                    if (!yearStr.isEmpty()) {
-                        studentData.put("year", Integer.parseInt(yearStr));
-                    }
-
-                    db.collection("Students")
-                        .document(roll)
-                        .set(studentData)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(this, "Student added successfully", Toast.LENGTH_SHORT).show();
-                            loadStudents();
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(this, "Error adding student: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            android.util.Log.e("ManageStudents", "Error adding student", e);
-                        });
-                } catch (NumberFormatException e) {
-                    Toast.makeText(this, "Invalid number format", Toast.LENGTH_SHORT).show();
-                }
             })
             .setNegativeButton("Cancel", null)
             .show();
+    }
+
+    private void saveStudentToFirestore(String roll, String name, String department, String termStr, String yearStr, String section, String email, String phone, String uid) {
+        try {
+            Map<String, Object> student = new HashMap<>();
+            student.put("roll", Long.parseLong(roll));
+            student.put("name", name);
+            student.put("department", department);
+            student.put("term", Integer.parseInt(termStr));
+            student.put("year", Integer.parseInt(yearStr));
+            student.put("section", section);
+            student.put("email", email);
+            student.put("uid", uid);
+            student.put("role", "student");
+
+            if (!phone.isEmpty()) {
+                String numericPhone = phone.replaceAll("[^0-9]", "");
+                if (!numericPhone.isEmpty()) {
+                     try {
+                        student.put("phone", Long.parseLong(numericPhone));
+                     } catch (NumberFormatException nfe) {
+                        student.put("phone", phone);
+                     }
+                } else {
+                     student.put("phone", "");
+                }
+            } else {
+                student.put("phone", "");
+            }
+
+            db.collection("Students")
+                .document(roll)
+                .set(student)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Student added successfully", Toast.LENGTH_SHORT).show();
+                    loadStudents();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error adding student details: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Invalid number format", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void deleteStudent(Student student) {

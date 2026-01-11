@@ -25,11 +25,11 @@ public class registration extends AppCompatActivity {
             return insets;
         });
 
-        // Apply blur effect to background image
+        
         ImageView backgroundImage = null;
         if (backgroundImage != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // For Android 12 (API 31) and above, use RenderEffect for blur
-            float blurRadius = 15f; // Adjust this value: higher = more blur
+            
+            float blurRadius = 15f; 
             backgroundImage.setRenderEffect(
                 RenderEffect.createBlurEffect(blurRadius, blurRadius, Shader.TileMode.CLAMP)
             );

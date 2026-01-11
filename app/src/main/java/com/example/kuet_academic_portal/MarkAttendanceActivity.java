@@ -118,7 +118,7 @@ public class MarkAttendanceActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         try {
-            // Convert term and year to integers for Firestore query
+            
             int termInt = Integer.parseInt(term);
             int yearInt = Integer.parseInt(year);
 
@@ -182,6 +182,7 @@ public class MarkAttendanceActivity extends AppCompatActivity {
             return;
         }
 
+        btnSubmitAttendance.setEnabled(false); 
         progressBar.setVisibility(View.VISIBLE);
         Map<String, String> attendanceStatus = adapter.getAttendanceStatus();
 
@@ -193,7 +194,13 @@ public class MarkAttendanceActivity extends AppCompatActivity {
             if (status == null) status = "Absent";
 
             Map<String, Object> attendance = new HashMap<>();
-            attendance.put("roll", Long.parseLong(student.getRoll()));  // Convert to Long
+
+            try {
+                attendance.put("roll", Long.parseLong(student.getRoll()));  
+            } catch (NumberFormatException e) {
+                attendance.put("roll", student.getRoll()); 
+            }
+
             attendance.put("studentName", student.getName());
             attendance.put("course", course);
             attendance.put("teacher", teacher);
@@ -209,6 +216,7 @@ public class MarkAttendanceActivity extends AppCompatActivity {
                     processedCount[0]++;
                     if (processedCount[0] == totalStudents) {
                         progressBar.setVisibility(View.GONE);
+                        btnSubmitAttendance.setEnabled(true);
                         Toast.makeText(this, "Attendance submitted successfully", Toast.LENGTH_LONG).show();
                         finish();
                     }
@@ -217,10 +225,10 @@ public class MarkAttendanceActivity extends AppCompatActivity {
                     processedCount[0]++;
                     if (processedCount[0] == totalStudents) {
                         progressBar.setVisibility(View.GONE);
+                        btnSubmitAttendance.setEnabled(true);
                         Toast.makeText(this, "Some errors occurred", Toast.LENGTH_SHORT).show();
                     }
                 });
         }
     }
 }
-

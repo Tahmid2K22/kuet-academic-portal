@@ -7,10 +7,10 @@ public class Result {
     private int year;
     private int term;
     private Double gpa;
-    private Map<String, Float> ctMarks; // Course Name -> Marks
+    private Map<String, Float> ctMarks; 
 
     public Result() {
-        // Required empty public constructor
+        
     }
 
     public Result(String roll, int year, int term, Double gpa, Map<String, Float> ctMarks) {

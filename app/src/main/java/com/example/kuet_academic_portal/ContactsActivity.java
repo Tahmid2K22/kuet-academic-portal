@@ -129,7 +129,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactListAd
                 .delete()
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Contact deleted", Toast.LENGTH_SHORT).show();
-                    loadContacts(); // Reload list
+                    loadContacts(); 
                 })
                 .addOnFailureListener(e -> {
                     progressBar.setVisibility(View.GONE);
