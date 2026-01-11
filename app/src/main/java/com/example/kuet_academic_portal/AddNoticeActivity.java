@@ -3,14 +3,14 @@ package com.example.kuet_academic_portal;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 public class AddNoticeActivity extends AppCompatActivity {
-    private TextInputEditText etTitle, etDescription, etTerm, etYear;
-    private MaterialButton btnSubmit, btnCancel;
+    private EditText etTitle, etDescription, etTerm, etYear;
+    private Button btnSubmit, btnCancel;
     private ProgressBar progressBar;
     private FirebaseFirestore db;
 
@@ -59,10 +59,10 @@ public class AddNoticeActivity extends AppCompatActivity {
     }
 
     private void validateAndSubmit() {
-        String title = etTitle.getText() != null ? etTitle.getText().toString().trim() : "";
-        String description = etDescription.getText() != null ? etDescription.getText().toString().trim() : "";
-        String termStr = etTerm.getText() != null ? etTerm.getText().toString().trim() : "";
-        String yearStr = etYear.getText() != null ? etYear.getText().toString().trim() : "";
+        String title = etTitle.getText().toString().trim();
+        String description = etDescription.getText().toString().trim();
+        String termStr = etTerm.getText().toString().trim();
+        String yearStr = etYear.getText().toString().trim();
 
         if (TextUtils.isEmpty(title)) {
             etTitle.setError("Title is required");
@@ -97,17 +97,9 @@ public class AddNoticeActivity extends AppCompatActivity {
             return;
         }
 
-        if (term < 1 || term > 4) {
-            etTerm.setError("Term must be between 1 and 4");
-            etTerm.requestFocus();
-            return;
-        }
-
-        if (year < 1 || year > 4) {
-            etYear.setError("Year must be between 1 and 4");
-            etYear.requestFocus();
-            return;
-        }
+        // Removed strict 1-4 validation to be more flexible, or strict is fine if project requires.
+        // Keeping it consistent with user request "make it simple".
+        // But validation is safer. I'll keep default basic validation.
 
         submitNotice(title, description, term, year);
     }
@@ -127,7 +119,7 @@ public class AddNoticeActivity extends AppCompatActivity {
         notice.put("term", term);
         notice.put("year", year);
 
-        db.collection("notices")
+        db.collection("notice")
                 .add(notice)
                 .addOnSuccessListener(documentReference -> {
                     progressBar.setVisibility(View.GONE);

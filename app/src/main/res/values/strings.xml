@@ -10,6 +10,12 @@
     <string name="background_image_description">Background image</string>
     <string name="kuet_logo_description">KUET logo</string>
 
+    <string name="back">Back</string>
+    <string name="contacts_title">Contacts</string>
+    <string name="no_contacts_found">No contacts found</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="no_attendance_records">No attendance records found.\nRoll: %1$s</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -46,4 +52,24 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+    <!-- AddContactActivity strings -->
+    <string name="add_new_contact">Add New Contact</string>
+    <string name="full_name_hint">Full Name</string>
+    <string name="designation_hint">Designation (e.g. Professor)</string>
+    <string name="department_hint">Department</string>
+    <string name="email_hint">Email Address</string>
+    <string name="phone_hint">Phone Number</string>
+    <string name="save_contact">Save Contact</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Contact item strings -->
+    <string name="contact_name_placeholder">Name</string>
+    <string name="contact_designation_placeholder">Designation</string>
+    <string name="contact_department_placeholder">Department</string>
+    <string name="contact_email_placeholder">email@example.com</string>
+    <string name="contact_phone_placeholder">01712345678</string>
+    <string name="desc_email_icon">Email symbol</string>
+    <string name="desc_phone_icon">Phone symbol</string>
+    <string name="desc_delete_contact">Delete contact</string>
 </resources>

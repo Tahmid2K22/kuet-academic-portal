@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class StudentAttendanceActivity extends AppCompatActivity {
@@ -33,18 +34,18 @@ public class StudentAttendanceActivity extends AppCompatActivity {
     private BarChart chartSubjectWise, chartMonthly, chartPresentAbsent;
     private ProgressBar progressBar;
     private TextView tvStats, tvStudentInfo;
-    private Button btnBack;
     private FirebaseFirestore db;
-    private SessionManager sessionManager;
     private String studentRoll;
 
+    @android.annotation.SuppressLint("InflateParams")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_attendance);
+        View view = getLayoutInflater().inflate(R.layout.activity_student_attendance, null);
+        setContentView(view);
 
         db = FirebaseFirestore.getInstance();
-        sessionManager = new SessionManager(this);
+        SessionManager sessionManager = new SessionManager(this);
 
         StudentSession session = sessionManager.getSession();
         if (session == null) {
@@ -68,7 +69,7 @@ public class StudentAttendanceActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         tvStats = findViewById(R.id.tvStats);
         tvStudentInfo = findViewById(R.id.tvStudentInfo);
-        btnBack = findViewById(R.id.btnBack);
+        Button btnBack = findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v -> finish());
     }
@@ -110,74 +111,102 @@ public class StudentAttendanceActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         try {
+            // First try querying as Number (typical case)
             long rollNumber = Long.parseLong(studentRoll);
+
+            android.util.Log.d("AttendanceDebug", "Querying for roll (Number): " + rollNumber);
 
             db.collection("attendance")
                 .whereEqualTo("roll", rollNumber)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    Toast.makeText(this, "Found " + queryDocumentSnapshots.size() + " attendance records for roll: " + rollNumber, Toast.LENGTH_LONG).show();
-
-                    Map<String, Integer> coursePresent = new HashMap<>();
-                    Map<String, Integer> courseTotal = new HashMap<>();
-                    Map<String, Integer> monthlyPresent = new HashMap<>();
-                    int totalPresent = 0;
-                    int totalAbsent = 0;
-
-                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        // Log each document for debugging
-                        String course = document.getString("course");
-                        String status = document.getString("status");
-                        Long rollFromDoc = document.getLong("roll");
-                        com.google.firebase.Timestamp timestamp = document.getTimestamp("date");
-
-                        // Debug log
-                        android.util.Log.d("AttendanceDebug", "Document: course=" + course + ", status=" + status + ", roll=" + rollFromDoc + ", date=" + timestamp);
-
-                        if (course != null && status != null) {
-                            courseTotal.put(course, courseTotal.getOrDefault(course, 0) + 1);
-
-                            if ("Present".equals(status)) {
-                                coursePresent.put(course, coursePresent.getOrDefault(course, 0) + 1);
-                                totalPresent++;
-
-                                if (timestamp != null) {
-                                    Calendar cal = Calendar.getInstance();
-                                    cal.setTime(timestamp.toDate());
-                                    String month = getMonthName(cal.get(Calendar.MONTH));
-                                    monthlyPresent.put(month, monthlyPresent.getOrDefault(month, 0) + 1);
-                                }
-                            } else {
-                                totalAbsent++;
-                            }
-                        } else {
-                            android.util.Log.w("AttendanceDebug", "Null course or status in document: " + document.getId());
-                        }
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        // If no results, try querying as String (fallback)
+                        loadAttendanceDataAsString(studentRoll);
+                    } else {
+                        processAttendanceData(queryDocumentSnapshots);
                     }
-
-                    android.util.Log.d("AttendanceDebug", "Total Present: " + totalPresent + ", Total Absent: " + totalAbsent);
-                    android.util.Log.d("AttendanceDebug", "Course totals: " + courseTotal.toString());
-
-                    if (totalPresent == 0 && totalAbsent == 0) {
-                        Toast.makeText(this, "No attendance data found. Data may still be loading or no records exist.", Toast.LENGTH_LONG).show();
-                        tvStats.setText("No attendance records found.\n\nRoll: " + studentRoll + "\n\nPlease check if attendance has been marked for this student.");
-                    }
-
-                    displaySubjectWiseChart(coursePresent, courseTotal);
-                    displayMonthlyChart(monthlyPresent);
-                    displayPresentAbsentChart(totalPresent, totalAbsent);
-                    displayStats(totalPresent, totalAbsent, courseTotal.size());
-
-                    progressBar.setVisibility(View.GONE);
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error loading attendance: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                    android.util.Log.e("AttendanceDebug", "Error querying number roll", e);
+                    // Try string fallback on error too
+                    loadAttendanceDataAsString(studentRoll);
                 });
+
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid roll number format", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
+            // If roll is not a number, query only as String
+            loadAttendanceDataAsString(studentRoll);
         }
+    }
+
+    private void loadAttendanceDataAsString(String rollString) {
+        android.util.Log.d("AttendanceDebug", "Querying for roll (String): " + rollString);
+
+        db.collection("attendance")
+            .whereEqualTo("roll", rollString)
+            .get()
+            .addOnSuccessListener(this::processAttendanceData)
+            .addOnFailureListener(e -> {
+                android.util.Log.e("AttendanceDebug", "Error querying string roll", e);
+                Toast.makeText(this, "Error loading attendance", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+            });
+    }
+
+    private void processAttendanceData(com.google.firebase.firestore.QuerySnapshot queryDocumentSnapshots) {
+        android.util.Log.d("AttendanceDebug", "Found " + queryDocumentSnapshots.size() + " documents");
+
+        Map<String, Integer> coursePresent = new HashMap<>();
+        Map<String, Integer> courseTotal = new HashMap<>();
+        Map<String, Integer> monthlyPresent = new HashMap<>();
+        int totalPresent = 0;
+        int totalAbsent = 0;
+
+        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+            String course = document.getString("course");
+            String status = document.getString("status");
+            com.google.firebase.Timestamp timestamp = document.getTimestamp("date");
+
+            // Case-insensitive trimming
+            if (course != null) course = course.trim();
+            if (status != null) status = status.trim();
+
+            // Debug log
+            android.util.Log.d("AttendanceDebug", "Doc ID: " + document.getId() + ", Course: " + course + ", Status: " + status);
+
+            if (course != null && status != null) {
+                Integer currentTotal = courseTotal.get(course);
+                courseTotal.put(course, (currentTotal == null ? 0 : currentTotal) + 1);
+
+                if ("Present".equalsIgnoreCase(status) || "P".equalsIgnoreCase(status)) { // Case-insensitive check, also 'P'
+                    Integer currentPresent = coursePresent.get(course);
+                    coursePresent.put(course, (currentPresent == null ? 0 : currentPresent) + 1);
+                    totalPresent++;
+
+                    if (timestamp != null) {
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(timestamp.toDate());
+                        String month = getMonthName(cal.get(Calendar.MONTH));
+                        Integer currentMonth = monthlyPresent.get(month);
+                        monthlyPresent.put(month, (currentMonth == null ? 0 : currentMonth) + 1);
+                    }
+                } else {
+                    totalAbsent++;
+                }
+            }
+        }
+
+        if (totalPresent == 0 && totalAbsent == 0) {
+            Toast.makeText(this, "No attendance data found.", Toast.LENGTH_SHORT).show();
+            tvStats.setText(String.format(Locale.getDefault(), "No attendance records found.\nRoll: %s", studentRoll));
+        }
+
+        displaySubjectWiseChart(coursePresent, courseTotal);
+        displayMonthlyChart(monthlyPresent);
+        displayPresentAbsentChart(totalPresent, totalAbsent);
+        displayStats(totalPresent, totalAbsent, courseTotal.size());
+
+        progressBar.setVisibility(View.GONE);
     }
 
     private void displaySubjectWiseChart(Map<String, Integer> coursePresent, Map<String, Integer> courseTotal) {
@@ -188,7 +217,10 @@ public class StudentAttendanceActivity extends AppCompatActivity {
         for (Map.Entry<String, Integer> entry : courseTotal.entrySet()) {
             String course = entry.getKey();
             int total = entry.getValue();
-            int present = coursePresent.getOrDefault(course, 0);
+
+            Integer p = coursePresent.getOrDefault(course, 0);
+            int present = p != null ? p : 0;
+
             float percentage = (present * 100f) / total;
 
             entries.add(new BarEntry(index, percentage));
@@ -255,7 +287,7 @@ public class StudentAttendanceActivity extends AppCompatActivity {
         labels.add("Absent");
 
         BarDataSet dataSet = new BarDataSet(entries, "Count");
-        dataSet.setColors(new int[]{Color.GREEN, Color.RED});
+        dataSet.setColors(Color.GREEN, Color.RED);
         dataSet.setValueTextSize(12f);
 
         BarData barData = new BarData(dataSet);
@@ -272,7 +304,7 @@ public class StudentAttendanceActivity extends AppCompatActivity {
         int total = present + absent;
         float percentage = total > 0 ? (present * 100f) / total : 0;
 
-        String stats = String.format(
+        String stats = String.format(Locale.US,
             "Total Classes: %d\nPresent: %d\nAbsent: %d\nOverall Attendance: %.2f%%\nSubjects: %d",
             total, present, absent, percentage, subjects
         );
@@ -286,4 +318,3 @@ public class StudentAttendanceActivity extends AppCompatActivity {
         return months[month];
     }
 }
-

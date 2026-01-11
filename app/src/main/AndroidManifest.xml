@@ -63,6 +63,18 @@
         <activity
             android:name=".ManageAssignmentsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ManageNoticesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StudentAssignmentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ContactsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddContactActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

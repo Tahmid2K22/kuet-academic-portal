@@ -124,10 +124,32 @@ public class login extends AppCompatActivity {
 
                         session.setSection(document.getString("section") != null ? document.getString("section") : "");
 
-                        Long termLong = document.getLong("term");
-                        Long yearLong = document.getLong("year");
-                        session.setTerm(termLong != null ? termLong.intValue() : 0);
-                        session.setYear(yearLong != null ? yearLong.intValue() : 0);
+
+                        int termVal = 0;
+                        Object termObj = document.get("term");
+                        if (termObj instanceof Number) {
+                            termVal = ((Number) termObj).intValue();
+                        } else if (termObj instanceof String) {
+                            try {
+                                termVal = Integer.parseInt(((String) termObj).trim());
+                            } catch (NumberFormatException e) {
+                                termVal = 0;
+                            }
+                        }
+                        session.setTerm(termVal);
+
+                        int yearVal = 0;
+                        Object yearObj = document.get("year");
+                        if (yearObj instanceof Number) {
+                            yearVal = ((Number) yearObj).intValue();
+                        } else if (yearObj instanceof String) {
+                            try {
+                                yearVal = Integer.parseInt(((String) yearObj).trim());
+                            } catch (NumberFormatException e) {
+                                yearVal = 0;
+                            }
+                        }
+                        session.setYear(yearVal);
 
                         session.setRole(document.getString("role") != null ? document.getString("role") : "student");
 

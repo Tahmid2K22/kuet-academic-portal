@@ -100,10 +100,8 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void openAssignments() {
-        // TODO: Create AssignmentsActivity
-        Toast.makeText(this, "Opening Assignments...", Toast.LENGTH_SHORT).show();
-        // Intent intent = new Intent(this, AssignmentsActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(this, StudentAssignmentsActivity.class);
+        startActivity(intent);
     }
 
     private void openAttendance() {
@@ -126,10 +124,9 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void openContacts() {
-        // TODO: Create ContactsActivity
-        Toast.makeText(this, "Opening Contacts...", Toast.LENGTH_SHORT).show();
-        // Intent intent = new Intent(this, ContactsActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(this, ContactsActivity.class);
+        intent.putExtra("isAdmin", false);
+        startActivity(intent);
     }
 
     private void showLogoutDialog() {

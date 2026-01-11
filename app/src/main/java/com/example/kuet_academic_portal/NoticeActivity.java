@@ -74,7 +74,7 @@ public class NoticeActivity extends AppCompatActivity {
 
         Log.d(TAG, "Loading notices for term: " + term + ", year: " + year);
 
-        db.collection("notices")
+        db.collection("notice")
                 .whereEqualTo("term", term)
                 .whereEqualTo("year", year)
                 .get()
@@ -117,7 +117,7 @@ public class NoticeActivity extends AppCompatActivity {
     }
 
     private void loadAllNotices() {
-        db.collection("notices")
+        db.collection("notice")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     noticeList.clear();

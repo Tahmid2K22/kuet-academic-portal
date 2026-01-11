@@ -58,6 +58,7 @@ public class AdminDashboard extends AppCompatActivity {
         MaterialCardView addResultCard = findViewById(R.id.addResultCard);
         MaterialCardView addRoutineCard = findViewById(R.id.addRoutineCard);
         MaterialCardView updateRoutineCard = findViewById(R.id.updateRoutineCard);
+        MaterialCardView manageContactsCard = findViewById(R.id.manageContactsCard);
 
         addStudentsCard.setOnClickListener(v -> {
             Intent intent = new Intent(AdminDashboard.this, AddStudentActivity.class);
@@ -77,7 +78,7 @@ public class AdminDashboard extends AppCompatActivity {
         addAttendanceCard.setOnClickListener(v -> showAttendanceMenu());
 
         addNoticeCard.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminDashboard.this, AddNoticeActivity.class);
+            Intent intent = new Intent(AdminDashboard.this, ManageNoticesActivity.class);
             startActivity(intent);
         });
 
@@ -92,6 +93,12 @@ public class AdminDashboard extends AppCompatActivity {
         updateRoutineCard.setOnClickListener(v ->
             Toast.makeText(this, "Update Routine feature coming soon", Toast.LENGTH_SHORT).show()
         );
+
+        manageContactsCard.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboard.this, ContactsActivity.class);
+            intent.putExtra("isAdmin", true);
+            startActivity(intent);
+        });
     }
 
     private void showAttendanceMenu() {
@@ -114,4 +121,3 @@ public class AdminDashboard extends AppCompatActivity {
             .show();
     }
 }
-

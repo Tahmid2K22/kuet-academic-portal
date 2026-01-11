@@ -1,6 +1,7 @@
 package com.example.kuet_academic_portal.model;
 
 public class Notice {
+    private String id;
     private String title;
     private String description;
     private String date;
@@ -10,12 +11,21 @@ public class Notice {
     public Notice() {
     }
 
-    public Notice(String title, String description, String date, int term, int year) {
+    public Notice(String id, String title, String description, String date, int term, int year) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.date = date;
         this.term = term;
         this.year = year;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -58,4 +68,3 @@ public class Notice {
         this.year = year;
     }
 }
-
