@@ -46,7 +46,15 @@ public class login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (sessionManager.isLoggedIn()) {
-            navigateToDashboard();
+            StudentSession session = sessionManager.getSession();
+            if (session != null && "admin".equals(session.getRole())) {
+                Intent intent = new Intent(login.this, AdminDashboard.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+                navigateToDashboard();
+            }
         }
     }
 
@@ -95,18 +103,25 @@ public class login extends AppCompatActivity {
     }
 
     private void fetchStudentDataAndCreateSession(String email) {
-        db.collection("students").whereEqualTo("email", email).limit(1)
+        db.collection("Students").whereEqualTo("email", email).limit(1)
                 .get()
                 .addOnSuccessListener(querySnapshot -> {
                     if (!querySnapshot.isEmpty()) {
                         DocumentSnapshot document = querySnapshot.getDocuments().get(0);
 
-                             StudentSession session = new StudentSession();
+                        StudentSession session = new StudentSession();
                         session.setEmail(email);
                         session.setName(document.getString("name") != null ? document.getString("name") : "Student");
                         session.setDepartment(document.getString("department") != null ? document.getString("department") : "");
-                        session.setPhone(document.getString("phone") != null ? document.getString("phone") : "");
-                        session.setRoll(document.getString("roll") != null ? document.getString("roll") : "");
+
+                        // Handle phone - stored as Number in Firestore
+                        Long phoneLong = document.getLong("phone");
+                        session.setPhone(phoneLong != null ? String.valueOf(phoneLong) : "");
+
+                        // Handle roll - stored as Number in Firestore
+                        Long rollLong = document.getLong("roll");
+                        session.setRoll(rollLong != null ? String.valueOf(rollLong) : "");
+
                         session.setSection(document.getString("section") != null ? document.getString("section") : "");
 
                         Long termLong = document.getLong("term");

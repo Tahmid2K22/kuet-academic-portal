@@ -59,25 +59,27 @@ public class AdminDashboard extends AppCompatActivity {
         MaterialCardView addRoutineCard = findViewById(R.id.addRoutineCard);
         MaterialCardView updateRoutineCard = findViewById(R.id.updateRoutineCard);
 
-        addStudentsCard.setOnClickListener(v ->
-            Toast.makeText(this, "Add Students feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        addStudentsCard.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboard.this, AddStudentActivity.class);
+            startActivity(intent);
+        });
 
-        updateStudentCard.setOnClickListener(v ->
-            Toast.makeText(this, "Update Student feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        updateStudentCard.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboard.this, ManageStudentsActivity.class);
+            startActivity(intent);
+        });
 
-        addAssignmentCard.setOnClickListener(v ->
-            Toast.makeText(this, "Add Assignment feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        addAssignmentCard.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboard.this, ManageAssignmentsActivity.class);
+            startActivity(intent);
+        });
 
-        addAttendanceCard.setOnClickListener(v ->
-            Toast.makeText(this, "Add Attendance feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        addAttendanceCard.setOnClickListener(v -> showAttendanceMenu());
 
-        addNoticeCard.setOnClickListener(v ->
-            Toast.makeText(this, "Add Notice feature coming soon", Toast.LENGTH_SHORT).show()
-        );
+        addNoticeCard.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboard.this, AddNoticeActivity.class);
+            startActivity(intent);
+        });
 
         addResultCard.setOnClickListener(v ->
             Toast.makeText(this, "Add Result feature coming soon", Toast.LENGTH_SHORT).show()
@@ -90,6 +92,26 @@ public class AdminDashboard extends AppCompatActivity {
         updateRoutineCard.setOnClickListener(v ->
             Toast.makeText(this, "Update Routine feature coming soon", Toast.LENGTH_SHORT).show()
         );
+    }
+
+    private void showAttendanceMenu() {
+        String[] options = {"Mark Attendance", "View Analytics"};
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Attendance Management")
+            .setItems(options, (dialog, which) -> {
+                switch (which) {
+                    case 0:
+                        Intent markIntent = new Intent(AdminDashboard.this, MarkAttendanceActivity.class);
+                        startActivity(markIntent);
+                        break;
+                    case 1:
+                        Intent analyticsIntent = new Intent(AdminDashboard.this, AdminAttendanceAnalyticsActivity.class);
+                        startActivity(analyticsIntent);
+                        break;
+                }
+            })
+            .show();
     }
 }
 

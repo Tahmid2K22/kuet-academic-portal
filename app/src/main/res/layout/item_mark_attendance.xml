@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvRoll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2207109"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#2C3E50"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student Name"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:layout_marginTop="2dp"/>
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbPresent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Present"
+                android:textColor="#27AE60"
+                android:buttonTint="#27AE60"/>
+
+            <RadioButton
+                android:id="@+id/rbAbsent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Absent"
+                android:textColor="#E74C3C"
+                android:buttonTint="#E74C3C"
+                android:layout_marginStart="8dp"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

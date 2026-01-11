@@ -22,7 +22,25 @@
             android:name=".NoticeActivity"
             android:exported="false" />
         <activity
+            android:name=".AddNoticeActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".AddStudentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManageStudentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MarkAttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminAttendanceAnalyticsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StudentAttendanceActivity"
             android:exported="false" />
         <activity
             android:name=".cls_routine"
@@ -41,6 +59,9 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManageAssignmentsActivity"
             android:exported="false" />
     </application>
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course Code"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Assignment Title"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top|start"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etDepartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Department"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etTerm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Term"
+            android:inputType="number"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Year"
+            android:inputType="number"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etDueDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Due Date (YYYY-MM-DD)"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
+

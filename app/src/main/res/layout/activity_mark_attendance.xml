@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2C3E50">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mark Attendance"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/etCourse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Course/Subject *"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/etTeacher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Teacher Name *"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/etDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Department *"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/etTerm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Term (1-4) *"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/etYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Year (1-4) *"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <EditText
+                        android:id="@+id/etSelectedDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Date"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:padding="12dp"/>
+
+                    <Button
+                        android:id="@+id/btnSelectDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select"
+                        android:backgroundTint="#3498DB"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnLoadStudents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Load Students"
+                    android:backgroundTint="#27AE60"
+                    android:textColor="@android:color/white"
+                    android:padding="12dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewStudents"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnSubmitAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Attendance"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#8E44AD"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#E74C3C"
+            android:padding="12dp"/>
+
+    </LinearLayout>
+</ScrollView>
+

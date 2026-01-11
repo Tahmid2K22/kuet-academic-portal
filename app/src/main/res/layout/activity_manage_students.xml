@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#2C3E50"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Students"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <EditText
+                android:id="@+id/etSearchRoll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Search by Roll"
+                android:inputType="number"
+                android:padding="8dp"/>
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:backgroundTint="#3498DB"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnAddStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+ Add New Student"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#27AE60"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewStudents"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#E74C3C"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>

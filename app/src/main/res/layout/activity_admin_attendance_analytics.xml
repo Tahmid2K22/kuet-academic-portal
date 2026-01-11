@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2C3E50">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attendance Analytics"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/etDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Department"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/etTerm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Term (1-4)"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/etYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Year (1-4)"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <Button
+                    android:id="@+id/btnLoadAnalytics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Load Analytics"
+                    android:backgroundTint="#27AE60"
+                    android:textColor="@android:color/white"
+                    android:padding="12dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Statistics"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvStats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Load data to see statistics"
+                    android:textSize="14sp"
+                    android:textColor="#555"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chartSubjectWise"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:padding="8dp"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chartPresentAbsent"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:padding="8dp"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#E74C3C"
+            android:padding="12dp"/>
+
+    </LinearLayout>
+</ScrollView>
+

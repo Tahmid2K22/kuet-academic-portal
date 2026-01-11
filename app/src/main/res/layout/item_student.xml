@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvRoll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Roll: 2207109"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#2C3E50"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Name"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvDepartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CSE"
+            android:textSize="14sp"
+            android:textColor="#555"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvSemester"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Term: 2 | Year: 2"
+            android:textSize="14sp"
+            android:textColor="#555"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit"
+                android:backgroundTint="#3498DB"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="4dp"/>
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete"
+                android:backgroundTint="#E74C3C"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="4dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

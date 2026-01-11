@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ECF0F1"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Assignments"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#2C3E50"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+
+        <EditText
+            android:id="@+id/etSearchCourse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Search by Course Code"
+            android:padding="12dp"
+            android:background="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:backgroundTint="#3498DB"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnAddAssignment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+ Add New Assignment"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#27AE60"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAssignments"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#E74C3C"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>
+

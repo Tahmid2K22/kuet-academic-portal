@@ -107,10 +107,8 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void openAttendance() {
-        // TODO: Create AttendanceActivity
-        Toast.makeText(this, "Opening Attendance...", Toast.LENGTH_SHORT).show();
-        // Intent intent = new Intent(this, AttendanceActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(this, StudentAttendanceActivity.class);
+        startActivity(intent);
     }
 
     private void openResults() {
