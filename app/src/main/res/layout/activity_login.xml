@@ -81,9 +81,9 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/emailLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:hint="Email"
                     app:boxStrokeColor="#2C3E50"
                     app:hintTextColor="#2C3E50"
@@ -102,10 +102,10 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/passwordLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:hint="Password"
                     app:boxStrokeColor="#2C3E50"
                     app:endIconMode="password_toggle"

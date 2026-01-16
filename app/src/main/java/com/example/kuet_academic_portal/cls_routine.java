@@ -2,6 +2,7 @@ package com.example.kuet_academic_portal;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,9 @@ public class cls_routine extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewRoutine);
         ProgressBar progressBar = findViewById(R.id.progressBar);
         TextView tvNoRoutine = findViewById(R.id.tvNoRoutine);
+        ImageView btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RoutineAdapter(routineList);
